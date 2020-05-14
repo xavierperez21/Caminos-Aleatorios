@@ -3,6 +3,7 @@ from campo import Campo
 from coordenadas import Coordenada
 from bokeh.plotting import figure, show, output_file
 
+
 def caminata(campo, borracho, pasos):
     inicio = campo.obtener_coordenada(borracho)
 
@@ -10,6 +11,7 @@ def caminata(campo, borracho, pasos):
         campo.mover_borracho(borracho)
 
     return inicio.distancia(campo.obtener_coordenada(borracho))
+
 
 
 def simular_caminata(pasos, numero_de_intentos, tipo_de_borracho):
@@ -26,12 +28,38 @@ def simular_caminata(pasos, numero_de_intentos, tipo_de_borracho):
     return distancias
 
 
+
+#Graficar estadísticas de acuerdo al numero a cada numero de pasos con los 100 intentos
 def graficar(x, y):
     output_file('Caminos_aleatorios.html')
     grafica = figure(title='Camino aleatorio', x_axis_label='pasos', y_axis_label='distancia')
-    grafica.line(x, y, legend='distancia media')
+    grafica.line(x, y, legend_label='distancia media')
 
     show(grafica)
+
+
+
+#Graficar los pasos del borracho a manera de ejemplo
+def graficar_pasos_borracho(tipo_de_borracho):
+    borracho2 = tipo_de_borracho(nombre='Xavi')
+    campo2 = Campo()
+    origen = Coordenada(0,0)
+    campo2.anadir_borracho(borracho2, origen)
+    lista_x = []
+    lista_y = []
+    pasos_del_borracho = 10000
+
+    for _ in range(pasos_del_borracho):
+        x, y = campo2.mover_borracho(borracho2, True)
+        lista_x.append(x)
+        lista_y.append(y)
+
+    output_file('Ejemplo_Caminata_Borracho.html')
+    grafica2 = figure(title='Ejemplo Caminata del Borracho')
+    grafica2.line(lista_x, lista_y, legend_label='Camino del borracho')
+
+    show(grafica2)
+
 
 
 def main(distancias_de_caminata, numero_de_intentos, tipo_de_borracho):
@@ -49,6 +77,9 @@ def main(distancias_de_caminata, numero_de_intentos, tipo_de_borracho):
         print(f'Min = {distancia_minima}')
 
     graficar(distancias_de_caminata, distancias_media_por_caminata)
+    graficar_pasos_borracho(tipo_de_borracho)
+
+
 
 if __name__ == "__main__":
     distancias_de_caminata = [10, 100, 1000, 10000]     #Diferentes numeros de pasos que va a recorrer el borracho en cada simulación
