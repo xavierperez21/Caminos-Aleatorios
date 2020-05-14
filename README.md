@@ -1,4 +1,4 @@
-# Caminos Aleatorios (ejemplo: camino de borrachos)
+# Caminos Aleatorios (ejemplo: camino de borrachos) 🍾
 
 Este ejemplo es gracias al [Curso de Programación Dinámica y Estocástica en Python](https://platzi.com/cursos/programacion-estocastica/ "Curso de Programación Dinámica y Estocástica en Python") por parte de Platzi. 
 
